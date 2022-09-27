@@ -1,0 +1,18 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Liste des mission{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_mission_create') }}">Creation</a>
+
+    {% for mission in missions %}
+        {{ mission.name|capitalize }} <br>
+        {{ mission.description }} <br>
+        {{ mission.startDate|date('d/m/Y') }} <br>
+        <a href="{{ path('admin_mission_show', {'id': mission.id}) }}">Voir</a>
+        <a href="{{ path('admin_mission_delete', {'id': mission.id, 'token': csrf_token('delete' ~ mission.id)}) }}">Supprimer</a>
+        <br><br>
+    {% else %}
+        Aucune mission.
+    {% endfor %}
+{% endblock %}
