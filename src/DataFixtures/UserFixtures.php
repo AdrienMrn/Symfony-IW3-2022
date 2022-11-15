@@ -13,6 +13,15 @@ class UserFixtures extends Fixture
         // PWD = test
         $pwd = '$2y$13$TZfZlU2YlcwiLV5X8Imnbe97/Opr1QwjwHXHbjceOV148w/34tIzq';
 
+        for ($i=0; $i<10; $i++) {
+            $user = (new User())
+                ->setEmail($i . 'user@user.fr')
+                ->setPassword($pwd)
+                ->setRoles(['ROLE_USER'])
+            ;
+            $manager->persist($user);
+        }
+
         $user = (new User())
             ->setEmail('user@user.fr')
             ->setPassword($pwd)
@@ -21,14 +30,14 @@ class UserFixtures extends Fixture
         $manager->persist($user);
 
         $user = (new User())
-            ->setEmail('user@admin.fr')
+            ->setEmail('admin@user.fr')
             ->setPassword($pwd)
             ->setRoles(['ROLE_ADMIN'])
         ;
         $manager->persist($user);
 
         $user = (new User())
-            ->setEmail('user@validator.fr')
+            ->setEmail('validator@user.fr')
             ->setPassword($pwd)
             ->setRoles(['ROLE_VALIDATOR'])
         ;

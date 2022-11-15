@@ -1,5 +1,5 @@
-controllers:
-    resource: ../src/Controller
+controller_security:
+    resource: ../src/Controller/SecurityController.php
     type: attribute
 
 controllers_front:
