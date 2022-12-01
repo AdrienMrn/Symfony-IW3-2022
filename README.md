@@ -31,7 +31,7 @@ Supprimer le cache du navigateur
 
 Voir les routes actives 
 
-`docker compose exec php bin/console make:crud`
+`docker compose exec php bin/console debug:router`
 
 ## Gestion des routes
 [https://symfony.com/doc/current/routing.html](https://symfony.com/doc/current/routing.html)
@@ -175,25 +175,3 @@ Exemple d'utilisation
 #### Sécurité : globale documentation
 
 Documentation complète liée à la sécurité [https://symfony.com/doc/current/security.html](https://symfony.com/doc/current/security.html)
-
-## Gestion des formulaires
-
-Documentation [https://symfony.com/doc/current/forms.html](https://symfony.com/doc/current/forms.html)
-Types [https://symfony.com/doc/current/reference/forms/types.html](https://symfony.com/doc/current/reference/forms/types.html)
-
-#### Contrainte de validation (Sécurité des formulaires : Assert)
-[https://symfony.com/doc/current/validation.html](https://symfony.com/doc/current/validation.html)
-
-Exemple d'utilisation
-```
-    #[ORM\Column(length: 50)]
-    #[NotBlank(message: 'Cette valeur ne peut pas être vide.')]
-    #[Type('string', message: 'Type de donnée invalide.')]
-    #[Length(
-        min: 10,
-        max: 50,
-        minMessage: 'Il faut minimum 10 caractères.',
-        maxMessage: 'Il faut maximum 50 caractères.'
-    )]
-    private ?string $name = null;
-```
