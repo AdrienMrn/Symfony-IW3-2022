@@ -7,4 +7,5 @@
         {{ mission.name|capitalize }} <br>
         {{ mission.description }} <br>
         {{ mission.startDate|date('d/m/Y') }}
+        <img src="{{ vich_uploader_asset(mission, 'imageFile') }}" alt="{{ mission.name }}">
 {% endblock %}

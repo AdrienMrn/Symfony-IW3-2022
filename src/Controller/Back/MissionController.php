@@ -94,9 +94,11 @@ class MissionController extends AbstractController
      * @return Response
      */
     #[Route('/{slug}', name: 'mission_show', methods: ['GET'])]
+    /** #[IsGranted(MissionVoter::VIEW, 'mission')]  */
+    #[Security('is_granted("ROLE_ORGANIZER") or mission.getParticipants().contains(user)')]
     public function show(Mission $mission): Response
     {
-        $this->denyAccessUnlessGranted(MissionVoter::VIEW, $mission);
+        //$this->denyAccessUnlessGranted(MissionVoter::VIEW, $mission);
 
         return $this->render('back/mission/show.html.twig', [
             'mission' => $mission
@@ -111,7 +113,7 @@ class MissionController extends AbstractController
      */
     #[Route('/{id}/delete/{token}', name: 'mission_delete', requirements: ['id' => '\d+'], methods: ['GET'])]
     #[Security("is_granted('ROLE_ORGANIZER')")]
-    public function delete(Mission $mission, $token, MissionRepository $missionRepository): Response
+    public function delete(Mission $mission, string $token, MissionRepository $missionRepository): Response
     {
         if (!$this->isCsrfTokenValid('delete' . $mission->getId(), $token)) {
             throw $this->createAccessDeniedException('Error token!');

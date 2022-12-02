@@ -60,10 +60,10 @@ class Mission
 
     #[Vich\UploadableField(mapping: 'missions', fileNameProperty: 'image')]
     #[Assert\Image(
-        mimeTypes: ['image/png', 'image/jpeg'],
-        mimeTypesMessage: 'coucou, tu peux mettre que des png ou jpeg',
         maxSize: '2M',
+        mimeTypes: ['image/png', 'image/jpeg'],
         maxRatio: '1',
+        mimeTypesMessage: 'coucou, tu peux mettre que des png ou jpeg',
         maxRatioMessage: 'Votre ratio d\'image est de {{ ratio }}, celui accepté est {{ max_ratio }}'
     )]
     private ?File $imageFile = null;
