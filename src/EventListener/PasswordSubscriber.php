@@ -25,12 +25,16 @@ class PasswordSubscriber implements EventSubscriberInterface
         $object = $args->getObject();
         if (!$object instanceof User) return;
 
-        $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPassword()));
+        $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPlainPassword()));
     }
 
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
         if (!$object instanceof User) return;
+
+        if ($object->getPlainPassword()) {
+            $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPlainPassword()));
+        }
     }
 }
