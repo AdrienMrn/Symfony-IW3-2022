@@ -5,6 +5,22 @@
 {% block body %}
     <a href="{{ path('admin_mission_create') }}">Creation</a>
 
+    <br>
+
+    <form method="POST">
+        <input type="text" value="{{ app.request.request.get('query') }}" name="query" placeholder="Recherche..">
+        <select name="type">
+            {% for type in types %}
+                <option value="{{ type.id }}"{% if app.request.request.get('type') == type.id %} selected{% endif %}>{{ type.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="limit">
+            <option value="10">10</option>
+            <option value="30">30</option>
+        </select>
+        <button type="submit">Rechercher</button>
+    </form>
+
     {% for mission in missions %}
         {{ mission.name|capitalize }} <br>
         {{ mission.description }} <br>

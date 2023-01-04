@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Mission;
 use App\Form\MissionType;
 use App\Repository\MissionRepository;
+use App\Repository\TypeRepository;
 use App\Security\Voter\MissionVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,11 +22,16 @@ class MissionController extends AbstractController
      * @param MissionRepository $missionRepository
      * @return Response
      */
-    #[Route('/', name: 'mission_index', methods: ['GET'])]
-    public function index(MissionRepository $missionRepository): Response
+    #[Route('/', name: 'mission_index', methods: ['GET', 'POST'])]
+    public function index(MissionRepository $missionRepository, TypeRepository $typeRepository, Request $request): Response
     {
+        $types = $typeRepository->findAll();
+
+        $missions = $missionRepository->search($request);
+
         return $this->render('back/mission/index.html.twig', [
-            'missions' => $missionRepository->findBy([], ['position' => 'ASC'])
+            'types' => $types,
+            'missions' => $missions
         ]);
     }
 
